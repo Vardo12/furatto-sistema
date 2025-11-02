@@ -117,6 +117,7 @@
       <h3>🧺 Productos seleccionados:</h3>
       <textarea id="pedidoList" readonly></textarea>
       <button onclick="sendWhatsApp()">📲 Enviar por WhatsApp</button>
+      <button onclick="clearAll()">🧹 Limpiar Todo</button>
     </div>
   </div>
 
@@ -167,6 +168,14 @@
       const texto = encodeURIComponent("🧾 Pedido Furatto:\n\n" + pedidos.join("\n"));
       const link = `https://wa.me/?text=${texto}`;
       window.open(link, "_blank");
+    }
+
+    function clearAll() {
+      if (!confirm("¿Seguro que deseas limpiar todo el pedido?")) return;
+      localStorage.removeItem("pedidos");
+      pedidos = [];
+      renderList();
+      alert("🧹 Pedido limpiado correctamente.");
     }
 
     window.onload = renderList;

@@ -120,6 +120,7 @@
 
     <div class="footer">
       <button onclick="downloadExcel()">📥 Descargar Excel</button>
+      <button onclick="clearAll()">🧹 Limpiar Todo</button>
     </div>
   </div>
 
@@ -142,7 +143,7 @@
       const container = document.getElementById("productContainer");
       container.innerHTML = "";
 
-      products.forEach((product, index) => {
+      products.forEach((product) => {
         const div = document.createElement("div");
         div.className = "product-item";
 
@@ -188,6 +189,15 @@
 
       const fecha = new Date().toLocaleDateString("es-CL").replace(/\//g, "-");
       XLSX.writeFile(wb, `Stock_Furatto_${fecha}.xlsx`);
+    }
+
+    function clearAll() {
+      if (!confirm("¿Seguro que deseas limpiar todo el stock y pedidos?")) return;
+      localStorage.clear();
+      products = [];
+      pedidos = [];
+      document.getElementById("productContainer").innerHTML = "";
+      alert("🧹 Todo se limpió correctamente.");
     }
 
     window.onload = () => {
