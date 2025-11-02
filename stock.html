@@ -180,7 +180,9 @@
     function downloadExcel() {
       const wsData = [["Producto", "Cantidad / Detalle"]];
       products.forEach(p => {
-        wsData.push([p, localStorage.getItem(`stock_${p}`) || ""]);
+        const valor = localStorage.getItem(`stock_${p}`) || "";
+        // 🔒 Forzar a que Excel lo trate como texto
+        wsData.push([p, "'" + valor]);
       });
 
       const ws = XLSX.utils.aoa_to_sheet(wsData);
